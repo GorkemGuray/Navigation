@@ -7,15 +7,29 @@
 
 import SwiftUI
 
+struct DetailView: View {
+    var number: Int
+    
+    var body: some View {
+        Text("Detail View \(number)")
+    }
+    
+    init(number: Int) {
+        self.number = number
+        print("Creating detail view\(number)")
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List(0..<100) {i in
+                NavigationLink("Select \(i)", value: i)
+            }
+            .navigationDestination(for: Int.self) {selection in
+                Text("You selected \(selection)")
+            }
         }
-        .padding()
     }
 }
 
